@@ -121,11 +121,9 @@ def find_ones(arr):
         for j in i:
             if j == 1:
                 count = count + 1
-    return count
+    return count, len(np.where(arr==1)[0])
 
-eye_arr = np.eye(6,4)
-print(find_ones(eye_arr))
-#print(np.where(a>2,0,1))
+find_ones(np.eye(6,4))
 ```
 
 ## Excercises 8-???
@@ -138,9 +136,8 @@ Repeat exercise A.1 from Marsland, but create a Pandas DataFrame instead of a Nu
 ```python
 # YOUR SOLUTION HERE
 import pandas as pd
-arr1 = np.array([[2, 2, 2, 2], [2, 2, 2, 2], [2, 2, 2, 2], [2, 2, 2, 2], [2, 2, 2, 2], [2, 2, 2, 2]])
-df = pd.DataFrame(arr1)
-df
+a = pd.DataFrame(np.ones((6, 4)) * 2)
+a
 ```
 
 ## Exercise 9
@@ -148,14 +145,11 @@ Repeat exercise A.2 using a DataFrame instead.
 
 ```python
 # YOUR SOLUTION HERE
-arr2 = np.ones((6,4))
-df = pd.DataFrame(arr2)
+b = np.ones((6,4))
+b = pd.DataFrame(b)
 
-for i in range(6):
-    for j in range(4):
-        if i == j:
-            df[i][j] += 2
-df
+b.iloc[range(4), range(4)] = 3
+b
 ```
 
 ## Exercise 10
@@ -174,22 +168,15 @@ Repeat exercise A.7 using a dataframe.
 
 ```python
 # YOUR SOLUTION HERE
-arr2 = np.eye(6,4)
-df = pd.DataFrame(arr2)
+def count_the_ones(a):
+    count = 0
+    for i in range(a.shape[0]):
+        for j in range(a.shape[1]):
+            if a.iloc[i, j] == 1:
+                count += 1
+    return count, len(np.where(a==1)[0])
 
-count1 = 0
-count2 = 0
-
-for i in range(6):
-    for j in range(4):
-        if df.iloc[i, j] == 1:
-            count1 += 1
-
-for i in range(4):
-    count2 += (df[i] == 1).sum()
-            
-print(count1)
-print(count2)
+count_the_ones(a), count_the_ones(b)
 ```
 
 ## Exercises 12-14
@@ -210,6 +197,7 @@ How do you select the ``name`` column without using .iloc?
 
 ```python
 ## YOUR SOLUTION HERE
+titanic_df['name']
 ```
 
 ## Exercise 13
@@ -218,6 +206,7 @@ After setting the index to ``sex``, how do you select all passengers that are ``
 ```python
 ## YOUR SOLUTION HERE
 titanic_df.set_index('sex',inplace=True)
+titanic_df.loc['female']
 ```
 
 ## Exercise 14
@@ -225,6 +214,8 @@ How do you reset the index?
 
 ```python
 ## YOUR SOLUTION HERE
+titanic_df.reset_index(inplace=True)
+titanic_df
 ```
 
 
