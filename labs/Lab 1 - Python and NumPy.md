@@ -15,6 +15,7 @@ jupyter:
 
 # Name(s)
 **Elliot Brainerd**
+**Brian Tsai**
 
 
 **Instructions:** This is an individual assignment, but you may discuss your code with your neighbors.
